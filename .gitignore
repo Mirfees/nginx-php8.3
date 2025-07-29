@@ -11,3 +11,6 @@ app/shared/*
 
 app/www/*
 !app/www/.gitkeep
+
+logs/*
+!logs/.gitkeep
