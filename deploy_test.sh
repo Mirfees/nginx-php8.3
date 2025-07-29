@@ -6,6 +6,8 @@ set -o allexport
 source .env
 set +o allexport
 
+echo "========== STEP 1: Up containers =========="
+make dc.build
 make dc.up -d
 
 echo "========== STEP 2: Downloading WP core =========="
@@ -34,3 +36,7 @@ docker-compose exec www bash -c "echo '/*
 */' > ./wp-content/themes/wp-theme-$PROJECT_NAME/style.css"
 
 docker-compose exec www bash -c "wp theme activate wp-theme-$PROJECT_NAME"
+
+echo "========== STEP 8: Installing plugins bundle =========="
+docker-compose exec www bash -c "composer require htmlburger/carbon-fields-plugin"
+make wp.install-plugins

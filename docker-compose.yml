@@ -19,6 +19,9 @@ services:
      - ./logs:/var/log/
     ports:
      - "${NGINX_PORT}:80"
+    depends_on:
+      db:
+        condition: service_healthy
   db:
     container_name: ${PREFIX_CONTAINER_NAME}-db
     build: mysql
@@ -30,6 +33,10 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-proot"]
+      interval: 5s
+      retries: 10
     volumes:
       - ./app/shared:/var/shared
       - ./app/mysql:/var/lib/mysql

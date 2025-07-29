@@ -79,6 +79,6 @@ wp.core-install:
 	--admin_email=$(ADMIN_EMAIL) \
 	--skip-email"
 wp.install-plugins:
-	docker-compose exec www bash -c "wp plugin install carbon-fields contact-form-7 wp-mail-smtp \
-	cookieyes-gdpr-cookie-consent duplicate-page wp-activity-log \
-	wordpress-seo query-monitor cyr-to-lat booster-10web wp-optimize --activate"
+	docker-compose exec www bash -c "wp plugin install contact-form-7 wp-mail-smtp \
+	cookie-law-info duplicate-page wp-security-audit-log \
+	wordpress-seo query-monitor cyr2lat tenweb-speed-optimizer wp-optimize --activate"
