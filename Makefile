@@ -74,7 +74,7 @@ wp.core-install:
 	docker-compose exec www bash -c "wp core install \
 	--url=$(SITE_URL) \
 	--title=$(SITE_TITLE) \
-    --admin_user=$(ADMIN_USER) \
+	--admin_user=$(ADMIN_USER) \
 	--admin_password=$(ADMIN_PASSWORD) \
 	--admin_email=$(ADMIN_EMAIL) \
 	--skip-email"
