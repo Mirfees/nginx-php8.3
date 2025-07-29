@@ -1,6 +1,13 @@
 .env
 !logs/.gitkeep
+app/mysql/*
 !app/mysql/.gitkeep
+
+app/redis/*
 !app/redis/.gitkeep
+
+app/shared/*
 !app/shared/.gitkeep
+
+app/www/*
 !app/www/.gitkeep
