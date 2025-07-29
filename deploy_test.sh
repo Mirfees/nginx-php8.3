@@ -34,4 +34,3 @@ docker-compose exec www bash -c "echo '/*
 */' > ./wp-content/themes/wp-theme-$PROJECT_NAME/style.css"
 
 docker-compose exec www bash -c "wp theme activate wp-theme-$PROJECT_NAME"
-
