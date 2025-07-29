@@ -1,7 +1,5 @@
 #! /bin/bash
 
-set -e
-
 current_path=$(pwd)
 
 set -o allexport
@@ -10,36 +8,30 @@ set +o allexport
 
 make dc.up -d
 
-
 echo "========== STEP 2: Downloading WP core =========="
-make bash "wp core download --locale=ru_RU --skip-content"
+make wp.download LOCALE=ru_RU
 
 echo "========== STEP 3: Setting up wp-config.php =========="
-make bash "wp config create \
-	--dbname=$DB_DATABASE \
-	--dbuser=$DB_USER \
-	--dbpass=$DB_ROOT_PASSWORD \
-	--force"
-
+make wp.config-create DB_DATABASE=$DB_DATABASE DB_USER=$DB_USER DB_ROOT_PASSWORD=$DB_ROOT_PASSWORD
 
 echo "========== STEP 4: Installing WP =========="
-make bash "wp core install \
-	--url=$SITE_URL \
-	--title=$SITE_TITLE \
-       	--admin_user=$ADMIN_USER \
-	--admin_password=$ADMIN_PASSWORD \
-	--admin_email=$ADMIN_EMAIL \
-	--skip_email"
-
-echo "========== STEP 5: Setting up wp-config.php =========="
-make bash "wp config create \
-	--dbname=$DB_DATABASE \
-	--dbuser=$DB_USER \
-	--dbpass=$DB_ROOT_PASSWORD \
-	--force"
+make wp.core-install SITE_URL=$SITE_URL SITE_TITLE=$SITE_TITLE ADMIN_USER=$ADMIN_USER ADMIN_PASSWORD=$ADMIN_PASSWORD ADMIN_EMAIL=$ADMIN_EMAIL
 
 echo "========== STEP 6: Installing standart theme =========="
-git clone "https://github.com/thunder-web-dev/wp-starter-theme" ./wp-content/themes/wp-theme-$PROJECT_NAME
+docker-compose exec www bash -c "git clone 'https://github.com/thunder-web-dev/wp-starter-theme' ./wp-content/themes/wp-theme-$PROJECT_NAME"
 
-echo "========== STEP 7: Creating DB =========="
-wp db create
+echo "========== STEP 7: Setting up theme =========="
+docker-compose exec www bash -c "echo '/*
+ * Theme Name: $PROJECT_NAME | Wordpress-theme
+ * Description: Template for $PROJECT_NAME
+ * Theme URI:
+ * Author: thunder-web.dev
+ * Author URI: https://thunder-web.ru
+ * Requires at least: 6.5.5
+ * Requires PHP: 7.4
+ * Version: 1.0
+ * Text Domain: $PROJECT_NAME
+*/' > ./wp-content/themes/wp-theme-$PROJECT_NAME/style.css"
+
+docker-compose exec www bash -c "wp theme activate wp-theme-$PROJECT_NAME"
+

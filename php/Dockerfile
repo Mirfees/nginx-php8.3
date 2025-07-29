@@ -34,7 +34,6 @@ RUN apt-get install -y php8.3-gd
 RUN apt-get install -y php8.3-bcmath
 RUN apt-get install -y php8.3-xml
 RUN apt-get install -y php8.3-zip
-RUN apt-get install -y php-zip
 RUN apt-get install -y php8.3-redis
 RUN apt-get install -y php8.3-exif
 RUN apt-get install -y php8.3-fileinfo
@@ -51,6 +50,11 @@ RUN apt-get install -y php8.3-ftp
 RUN apt-get install -y php8.3-xmlrpc
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
+
+RUN update-alternatives --install /usr/bin/php php /usr/bin/php8.3 100 \
+ && update-alternatives --install /usr/bin/phpize phpize /usr/bin/phpize8.3 100 \
+ && update-alternatives --install /usr/bin/php-config php-config /usr/bin/php-config8.3 100
+
 #RUN pecl install imagick ssh2
 
 ENV TZ Europe/Moscow
