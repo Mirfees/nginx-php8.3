@@ -34,6 +34,7 @@ RUN apt-get install -y php8.3-gd
 RUN apt-get install -y php8.3-bcmath
 RUN apt-get install -y php8.3-xml
 RUN apt-get install -y php8.3-zip
+RUN apt-get install -y php-zip
 RUN apt-get install -y php8.3-redis
 RUN apt-get install -y php8.3-exif
 RUN apt-get install -y php8.3-fileinfo
