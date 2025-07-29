@@ -6,7 +6,7 @@ services:
       context: php
       args:
         - USER=${USER}
-        - UID=${UID}
+        - UID=${USER_ID}
     restart: unless-stopped
     environment:
       - MAIL_HOST=mailhog

@@ -2,5 +2,3 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 #* * * * * echo "Crontab is working - watchdog 1" > /proc/1/fd/1
 #* * * * * echo "Crontab is working - watchdog 1" >> /var/log/cron.log
-* 4 * * * php -f /var/www/wp-content/plugins/leyka/procedures/leyka-active-recurring.php
-0 3 * * * /var/www/dev/delete_tmpWpfc.sh
