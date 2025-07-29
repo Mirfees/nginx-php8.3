@@ -56,3 +56,31 @@ npm.install:
 	make node npm install
 npm.update:
 	make node npm update
+
+################
+# WP INSTALL
+################
+
+wp.download:
+	docker-compose exec www bash -c "wp core download --locale=$(LOCALE) --skip-content"
+wp.config-create:
+	docker-compose exec www bash -c "wp config create \
+	--dbname=$(DB_DATABASE) \
+	--dbuser=$(DB_USER) \
+	--dbpass=$(DB_ROOT_PASSWORD) \
+	--dbhost=db \
+	--force"
+wp.core-install:
+	docker-compose exec www bash -c "wp core install \
+	--url=$(SITE_URL) \
+	--title=$(SITE_TITLE) \
+    --admin_user=$(ADMIN_USER) \
+	--admin_password=$(ADMIN_PASSWORD) \
+	--admin_email=$(ADMIN_EMAIL) \
+	--skip-email"
+wp.install-plugins:
+    docker-compose exec www bash -c " \
+      wp plugin install carbon-fields contact-form-7 wp-mail-smtp \
+      cookieyes-gdpr-cookie-consent duplicate-page wp-activity-log \
+      wordpress-seo query-monitor cyr-to-lat booster-10web wp-optimize --activate \
+    "
