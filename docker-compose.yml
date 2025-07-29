@@ -38,6 +38,7 @@ services:
     networks:
       - db
   phpmyadmin:
+    container_name: ${PREFIX_CONTAINER_NAME}-phpma
     image: phpmyadmin/phpmyadmin
     ports:
       - "${PHPMYADMIN_PORT}:80"
@@ -49,6 +50,7 @@ services:
       - PMA_ARBITRARY=1
     restart: unless-stopped
   mailhog:
+    container_name: ${PREFIX_CONTAINER_NAME}-mailhog
     image: mailhog/mailhog
     ports:
       - "${MAILHOG_PORT}:8025"
